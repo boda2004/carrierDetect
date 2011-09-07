@@ -50,6 +50,7 @@ function admin_delete_ip_range(&$action, &$data) {
     } catch (Exception $e) {
         $action = 'error';
         $data['error'] = $e->getMessage();
+        $data['backUrl'] = 'http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=carrier_ip&amp;carrier='.$carrier;
     }
 }
 
@@ -66,6 +67,7 @@ function admin_add_ip_range(&$action, &$data) {
     } catch (Exception $e) {
         $action = 'error';
         $data['error'] = $e->getMessage();
+        $data['backUrl'] = 'http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=carrier_ip&amp;carrier='.$carrier;
     }
 }
 

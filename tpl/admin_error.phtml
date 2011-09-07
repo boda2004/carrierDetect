@@ -1,6 +1,8 @@
 <?php echo process_template('admin_header');?>
 <div>
 Error occured: <?php echo $var_error;?><br/>
-<a href="admin.php">Back</a>
+<?php if (!empty($var_backUrl)): ?>
+<a href="<?php echo $var_backUrl;?>">Back</a>
+<?php endif; ?>
 </div>
 <?php echo process_template('admin_footer');?>
