@@ -31,4 +31,12 @@ function __class_loader($class) {
         require_once DROOT.'/lib/'.$class.'.php';
     }
 }
+
+function process_template($template = 'index', $data = array()) {
+    extract($data, EXTR_PREFIX_ALL, 'var');
+    unset($data);
+    ob_start();
+    include DROOT.'/tpl/'.$template.'.phtml';
+    return ob_get_clean();
+}
 ?>

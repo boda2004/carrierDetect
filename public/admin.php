@@ -8,5 +8,16 @@ if (empty($CONFIG['AUTH']['users'][$user]) || $CONFIG['AUTH']['users'][$user] !=
     echo $CONFIG['AUTH']['text'];
     exit;
 }
-echo 'Hello, '.$user.'!';
+$action = empty($_REQUEST['action'])? 'index': $_REQUEST['action'];
+$data = array(
+    'user' => $user
+);
+switch ($action) {
+    case 'index':
+        break;
+    default:
+        $action = 'error';
+        $data['error'] = 'Unknown action';
+}
+echo process_template('admin_'.$action, $data);
 ?>
