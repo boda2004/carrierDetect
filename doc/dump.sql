@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 06, 2011 at 06:47 PM
+-- Generation Time: Sep 07, 2011 at 04:06 PM
 -- Server version: 5.1.45
 -- PHP Version: 5.3.4
 
@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS `carriers` (
   `carrier` varchar(64) NOT NULL,
   `description` text NOT NULL,
   `redirect_url` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `carrier` (`carrier`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `carriers`
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `ip_ranges` (
   `priority` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `carrier_id` (`carrier_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ip_ranges`
