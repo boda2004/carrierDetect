@@ -13,15 +13,27 @@ if (!count($carriers)) :?>
 <th>Carrier</th>
 <th>Description</th>
 <th>Redirect URL</th>
+<th>&nbsp;</th>
 </tr>
-<?php foreach($carriers as $carrier):?>
-<tr>
+<?php foreach($carriers as $pos => $carrier):?>
+<tr class="row<?php echo $pos%2?>">
 <td><?php echo $carrier['id'];?></td>
 <td><?php echo $carrier['carrier'];?></td>
 <td><?php echo $carrier['description'];?></td>
 <td><?php echo $carrier['redirect_url'];?></td>
+<td><a href="admin.php?action=delete_carrier&amp;id=<?php echo $carrier['id'];?>" onclick="return confirm('Do you really want to delete carrier &quot;<?php echo $carrier['carrier'];?>&quot; and all associated IPs?');">delete</a></td>
 </tr>
 <?php endforeach;?>
 </table>
 <?php endif; ?>
+<form action="admin.php" method="post">
+<dl>
+<dt></dt>
+<dd><input type="hidden" name="action" value="add_carrier" /></dd>
+<dt><label>Carrier: </label></dt><dd><input type="text" name="carrier" id="carrier"/></dd>
+<dt><label>Description: </label></dt><dd><textarea name="description" id="description" cols="15" rows="5"></textarea></dd>
+<dt><label>Redirect URL: </label></dt><dd><input type="text" name="redirect_url" /></dd>
+<dt></dt><dd><input type="submit" value="Add" /></dd>
+</dl>
+</form>
 <?php echo process_template('admin_footer');?>
