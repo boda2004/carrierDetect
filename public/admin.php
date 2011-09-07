@@ -12,39 +12,16 @@ $action = empty($_REQUEST['action'])? 'index': $_REQUEST['action'];
 $data = array(
     'user' => $user
 );
+
+require_once DROOT.'/lib/functions_admin.php';
 switch ($action) {
     case 'index':
         break;
     case 'delete_carrier':
-        $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
-        try {
-            $carriers = new Carriers();
-            if ($carriers->delete($id)) {
-                header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
-                exit;
-            }
-        } catch (Exception $e) {
-            $action = 'error';
-            $data['error'] = $e->getMessage();
-        }
+        admin_delete_carrier($action, $data);
         break;
     case 'add_carrier':
-        $carrier = empty($_REQUEST['carrier'])?'':$_REQUEST['carrier'];
-        $description = empty($_REQUEST['description'])?'':$_REQUEST['description'];
-        $redirectUrl = empty($_REQUEST['redirect_url'])?'':$_REQUEST['redirect_url'];
-        try {
-            $carriers = new Carriers();
-            if ($carriers->add($carrier, $description, $redirectUrl)) {
-                header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
-                exit;
-            } else {
-                $action = 'error';
-                $data['error'] = 'Could not add carrier';
-            }
-        } catch (Exception $e) {
-            $action = 'error';
-            $data['error'] = $e->getMessage();
-        }
+        admin_add_carrier($action, $data);
         break;
     default:
         $action = 'error';

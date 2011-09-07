@@ -27,14 +27,21 @@ class Carriers {
         $sth->bindParam(':carrier', $carrier);
         $sth->bindParam(':description', $description);
         $sth->bindParam(':redirect_url', $redirect_url);
-        return $sth->execute();
+        $sth->execute();
+        if ($sth->rowCount() != 1) {
+            $ei = $sth->errorInfo();
+            throw new Exception(empty($ei[2])?'Could not add carrier':$ei[2]);
+        }
     }
 
     public function delete($id) {
         $sth = $this->sql->prepare(self::SQL_CARRIER_DELETE);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
         $sth->execute();
-        return $sth->rowCount() > 0;
+        if ($sth->rowCount() != 1) {
+            $ei = $sth->errorInfo();
+            throw new Exception(empty($ei[2])?'Could not delete carrier':$ei[2]);
+        }
     }
 }
 ?>
