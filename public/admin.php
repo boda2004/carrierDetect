@@ -23,6 +23,15 @@ switch ($action) {
     case 'add_carrier':
         admin_add_carrier($action, $data);
         break;
+    case 'carrier_ip':
+        admin_carrier_ip($action, $data);
+        break;
+    case 'add_ip_range':
+        admin_add_ip_range($action, $data);
+        break;
+    case 'delete_range':
+        admin_delete_ip_range($action, $data);
+        break;
     default:
         $action = 'error';
         $data['error'] = 'Unknown action';

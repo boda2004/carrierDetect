@@ -26,4 +26,47 @@ function admin_add_carrier(&$action, &$data) {
         $data['error'] = $e->getMessage();
     }
 }
+
+function admin_carrier_ip(&$action, &$data) {
+    $carrier = empty($_REQUEST['carrier'])? '': $_REQUEST['carrier'];
+    try {
+        $carriers = new Carriers();
+        $data['carrierInfo'] = $carriers->getCarrier($carrier);
+        $data['IpRanges'] = $carriers->getIpRanges($data['carrierInfo']['id']);
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
+function admin_delete_ip_range(&$action, &$data) {
+    $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
+    $carrier = empty($_REQUEST['carrier'])?'':$_REQUEST['carrier'];
+    try {
+        $carriers = new Carriers();
+        $carriers->deleteIpRange($id);
+        header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=carrier_ip&carrier='.$carrier);
+        exit;
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
+function admin_add_ip_range(&$action, &$data) {
+    $carrier = empty($_REQUEST['carrier'])?'':$_REQUEST['carrier'];
+    $min_ip = empty($_REQUEST['min_ip'])?'':$_REQUEST['min_ip'];
+    $max_ip = empty($_REQUEST['max_ip'])?'':$_REQUEST['max_ip'];
+    $priority = empty($_REQUEST['priority'])?'':$_REQUEST['priority'];
+    try {
+        $carriers = new Carriers();
+        $carriers->addIpRange($carrier, $min_ip, $max_ip, $priority);
+        header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=carrier_ip&carrier='.$carrier);
+        exit;
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
 ?>

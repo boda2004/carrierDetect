@@ -1,0 +1,41 @@
+<?php echo process_template('admin_header');?>
+<div>
+Carrier : <?php echo $var_carrierInfo['carrier'];?>
+</div>
+<?php
+if (!count($var_IpRanges)) :?>
+<div class="empty">No ranges</div>
+<?php else : ?>
+<table class="ip-ranges">
+<tr>
+<th>ID</th>
+<th>Min</th>
+<th>Max</th>
+<th>Priority</th>
+<th>&nbsp;</th>
+</tr>
+<?php foreach($var_IpRanges as $pos => $range):?>
+<tr class="row<?php echo $pos%2?>">
+<td><?php echo $range['id'];?></td>
+<td><?php echo $range['min_ip'];?></td>
+<td><?php echo $range['max_ip'];?></td>
+<td><?php echo $range['priority'];?></td>
+<td><a href="admin.php?action=delete_range&amp;carrier=<?php echo $var_carrierInfo['id'];?>&amp;id=<?php echo $range['id'];?>" onclick="return confirm('Do you really want to delete IP range?');">delete</a></td>
+</tr>
+<?php endforeach;?>
+</table>
+<?php endif; ?>
+<div>
+<h2>Add new IP range:</h2>
+<form action="admin.php" method="post">
+<dl>
+<dt></dt>
+<dd><input type="hidden" name="action" value="add_ip_range" /><input type="hidden" name="carrier" value="<?php echo $var_carrierInfo['id'];?>" /></dd>
+<dt><label>Min IP: </label></dt><dd><input type="text" name="min_ip" id="min_ip"/></dd>
+<dt><label>Max IP: </label></dt><dd><input type="text" name="max_ip" id="max_ip"/></dd>
+<dt><label>Priority: </label></dt><dd><input type="text" name="priority" /></dd>
+<dt></dt><dd><input type="submit" value="Add" /></dd>
+</dl>
+</form>
+</div>
+<?php echo process_template('admin_footer');?>

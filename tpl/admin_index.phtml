@@ -18,7 +18,7 @@ if (!count($carriers)) :?>
 <?php foreach($carriers as $pos => $carrier):?>
 <tr class="row<?php echo $pos%2?>">
 <td><?php echo $carrier['id'];?></td>
-<td><?php echo $carrier['carrier'];?></td>
+<td><a href="admin.php?action=carrier_ip&amp;carrier=<?php echo $carrier['id'];?>"><?php echo $carrier['carrier'];?></a></td>
 <td><?php echo $carrier['description'];?></td>
 <td><?php echo $carrier['redirect_url'];?></td>
 <td><a href="admin.php?action=delete_carrier&amp;id=<?php echo $carrier['id'];?>" onclick="return confirm('Do you really want to delete carrier &quot;<?php echo $carrier['carrier'];?>&quot; and all associated IPs?');">delete</a></td>
