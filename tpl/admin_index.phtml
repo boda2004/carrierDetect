@@ -26,6 +26,8 @@ if (!count($carriers)) :?>
 <?php endforeach;?>
 </table>
 <?php endif; ?>
+<div>
+<h2>Add new carrier:</h2>
 <form action="admin.php" method="post">
 <dl>
 <dt></dt>
@@ -36,4 +38,5 @@ if (!count($carriers)) :?>
 <dt></dt><dd><input type="submit" value="Add" /></dd>
 </dl>
 </form>
+</div>
 <?php echo process_template('admin_footer');?>
