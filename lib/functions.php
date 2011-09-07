@@ -33,6 +33,7 @@ function __class_loader($class) {
 }
 
 function process_template($template = 'index', $data = array()) {
+    require_once DROOT.'/lib/tpl_functions.php';
     extract($data, EXTR_PREFIX_ALL, 'var');
     unset($data);
     ob_start();
