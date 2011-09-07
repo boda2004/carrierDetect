@@ -2,4 +2,26 @@
 <div>
 Hello, <?php echo $var_user;?>!
 </div>
+<?php
+$carriers = tpl_get_carriers();
+if (!count($carriers)) :?>
+<div class="empty">No carriers</div>
+<?php else : ?>
+<table class="carriers">
+<tr>
+<th>ID</th>
+<th>Carrier</th>
+<th>Description</th>
+<th>Redirect URL</th>
+</tr>
+<?php foreach($carriers as $carrier):?>
+<tr>
+<td><?php echo $carrier['id'];?></td>
+<td><?php echo $carrier['carrier'];?></td>
+<td><?php echo $carrier['description'];?></td>
+<td><?php echo $carrier['redirect_url'];?></td>
+</tr>
+<?php endforeach;?>
+</table>
+<?php endif; ?>
 <?php echo process_template('admin_footer');?>
