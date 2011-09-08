@@ -15,6 +15,6 @@ try {
 } catch (Exception $e) {
     $url = $carrierRow['redirect_url'];
 }
-add_to_log('[remote_addr='.$_SERVER['REMOTE_ADDR'].'][carrier='.$carrierName.'][campaign='.$campaignName.'][url='.$url.']', SEVERITY_DEBUG);
+add_to_log('[remote_addr='.$_SERVER['REMOTE_ADDR'].'][carrier='.$carrierName.'][campaign='.$campaignName.'][redirect_url='.$url.'][request_url=http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], SEVERITY_DEBUG);
 header('Location: '.$url);
 ?>
