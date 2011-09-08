@@ -1,5 +1,5 @@
 <?php
-class Carriers {
+class Carriers extends BaseClass{
     const SQL_CARRIER_ROW = 'SELECT * FROM carriers WHERE id=:id';
     const SQL_CARRIERS_ROWS = 'SELECT id, carrier, description, redirect_url FROM carriers LIMIT :start, :limit';
     const SQL_CARRIER_ADD = 'INSERT INTO carriers (carrier, description, redirect_url) VALUES(:carrier, :description, :redirect_url)';
@@ -9,16 +9,6 @@ class Carriers {
     const SQL_CARRIER_ADD_IP_RANGE = 'INSERT INTO ip_ranges (min_ip, max_ip, carrier_id, priority) VALUES(INET_ATON(:min_ip), INET_ATON(:max_ip), :carrier_id, :priority)';
     const SQL_CARRIER_DELETE_IP_RANGE = 'DELETE FROM ip_ranges WHERE id=:id';
 
-    /**
-     * @var PDO
-     */
-    protected $sql;
-    public function __construct($database = null) {
-        if (is_null($database)) {
-            $database = $GLOBALS['CONFIG']['SQL'];
-        }
-        $this->sql = new PDO($database['dsn'], $database['user'], $database['password'], $database['options']);
-    }
     public function getCarrier($id) {
         $sth = $this->sql->prepare(self::SQL_CARRIER_ROW, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
