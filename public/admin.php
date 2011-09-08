@@ -21,6 +21,12 @@ switch ($action) {
     case 'campaigns':
         admin_campaigns($action, $data);
         break;
+    case 'carrier_campaign':
+        admin_carrier_campaign($action, $data);
+        break;
+    case 'add_carrier_campaign':
+        admin_add_carrier_campaign($action, $data);
+        break;
     case 'delete_carrier':
         admin_delete_carrier($action, $data);
         break;
@@ -53,6 +59,9 @@ switch ($action) {
         break;
     case 'delete_range':
         admin_delete_ip_range($action, $data);
+        break;
+    case 'delete_carrier_campaign':
+        admin_delete_carrier_campaign($action, $data);
         break;
     default:
         $action = 'error';

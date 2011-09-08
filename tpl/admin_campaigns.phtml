@@ -20,7 +20,7 @@ if (!count($var_campaigns)) :?>
 <?php foreach($var_campaigns as $pos => $campaign):?>
 <tr class="row<?php echo $pos%2?>">
 <td><?php echo $campaign['id'];?></td>
-<td><a href="admin.php?action=campaign_ip&amp;campaign=<?php echo $campaign['id'];?>"><?php echo $campaign['campaign'];?></a></td>
+<td><a href="admin.php?action=carrier_campaign&amp;campaign_id=<?php echo $campaign['id'];?>"><?php echo $campaign['campaign'];?></a></td>
 <td><?php echo $campaign['description'];?></td>
 <td><?php echo $campaign['redirect_url'];?></td>
 <td>

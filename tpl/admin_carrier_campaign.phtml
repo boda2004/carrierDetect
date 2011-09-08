@@ -1,0 +1,54 @@
+<?php echo process_template('admin_header');?>
+<div>
+<h1>Campaign <?php echo $var_campaignInfo['campaign']?></h1>
+</div>
+<?php
+if (!count($var_carrier_campaign)) :?>
+<div class="empty">No carriers</div>
+<?php else : ?>
+<table class="carrier-campaign">
+<tr>
+<th>Carrier</th>
+<th>Redirect URL</th>
+<th>&nbsp;</th>
+</tr>
+<?php foreach($var_carrier_campaign as $pos => $cc):?>
+<tr class="row<?php echo $pos%2?>">
+<td><?php echo $cc['carrier'];?></td>
+<td><?php echo $cc['redirect_url'];?></td>
+<td>
+<a href="admin.php?action=delete_carrier_campaign&amp;carrier_id=<?php echo $cc['carrier_id'];?>&amp;campaign_id=<?php echo $cc['campaign_id'];?>" onclick="return confirm('Do you really want to delete <?php echo $cc['carrier'];?>?');">delete</a>
+</td>
+</tr>
+<?php endforeach;?>
+</table>
+<?php endif; ?>
+<div>
+<h2>Add new carrier to campaign <?php echo $var_campaignInfo['campaign']?>:</h2>
+<form action="admin.php" method="post">
+<dl>
+<dt></dt>
+<dd><input type="hidden" name="action" value="add_carrier_campaign" /><input type="hidden" name="campaign_id" value="<?php echo $var_campaignInfo['id'];?>" /></dd>
+<dt><label>Carrier: </label></dt><dd>
+<?php if (!count($var_carriers)) :?>
+<select name="carrier_id" id="carrier_id" disabled="disabled">
+<option value="0">No carriers defined</option>
+</select>
+<?php else :?>
+<select name="carrier_id" id="carrier_id">
+<?php foreach ($var_carriers as $carrier) :?>
+<option value="<?php echo $carrier['id'];?>"><?php echo $carrier['carrier'];?></option>
+<?php endforeach;?>
+</select>
+<?php endif;?>
+</dd>
+<dt><label>Redirect URL: </label></dt><dd><input type="text" name="redirect_url" /></dd>
+<?php if (!count($var_carriers)) :?>
+<dt></dt><dd><input type="submit" value="Add" disabled="disabled"/></dd>
+<?php else :?>
+<dt></dt><dd><input type="submit" value="Add" /></dd>
+<?php endif;?>
+</dl>
+</form>
+</div>
+<?php echo process_template('admin_footer');?>
