@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2011 at 04:06 PM
+-- Generation Time: Sep 08, 2011 at 03:12 PM
 -- Server version: 5.1.45
 -- PHP Version: 5.3.4
 
@@ -12,6 +12,28 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `carrier_detect`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `campaigns`
+--
+
+DROP TABLE IF EXISTS `campaigns`;
+CREATE TABLE IF NOT EXISTS `campaigns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `campaign` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `campaign` (`campaign`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `campaigns`
+--
+
+INSERT INTO `campaigns` (`id`, `campaign`, `description`) VALUES
+(1, 'campaign', 'My first campaign');
 
 -- --------------------------------------------------------
 
@@ -36,6 +58,28 @@ CREATE TABLE IF NOT EXISTS `carriers` (
 INSERT INTO `carriers` (`id`, `carrier`, `description`, `redirect_url`) VALUES
 (1, 'default', 'fallback', 'http://google.com?ref=default'),
 (2, 'test', 'test carrier', 'http://google.com?ref=test');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carrier_campaign`
+--
+
+DROP TABLE IF EXISTS `carrier_campaign`;
+CREATE TABLE IF NOT EXISTS `carrier_campaign` (
+  `carrier_id` int(11) NOT NULL,
+  `campaign_id` int(11) NOT NULL,
+  `redirect_url` varchar(255) NOT NULL,
+  UNIQUE KEY `carrier_id` (`carrier_id`,`campaign_id`),
+  KEY `campaign_id` (`campaign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `carrier_campaign`
+--
+
+INSERT INTO `carrier_campaign` (`carrier_id`, `campaign_id`, `redirect_url`) VALUES
+(2, 1, 'http://google.com?ref=localhost_my_campaign');
 
 -- --------------------------------------------------------
 
@@ -65,6 +109,13 @@ INSERT INTO `ip_ranges` (`id`, `min_ip`, `max_ip`, `carrier_id`, `priority`) VAL
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `carrier_campaign`
+--
+ALTER TABLE `carrier_campaign`
+  ADD CONSTRAINT `carrier_campaign_ibfk_2` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carrier_campaign_ibfk_1` FOREIGN KEY (`carrier_id`) REFERENCES `carriers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ip_ranges`
