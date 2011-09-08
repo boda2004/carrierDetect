@@ -23,6 +23,12 @@ switch ($action) {
     case 'add_carrier':
         admin_add_carrier($action, $data);
         break;
+    case 'edit_carrier':
+        admin_edit_carrier($action, $data);
+        break;
+    case 'edit_carrier_submit':
+        admin_edit_carrier_submit($action, $data);
+        break;
     case 'carrier_ip':
         admin_carrier_ip($action, $data);
         break;
