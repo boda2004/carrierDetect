@@ -1,9 +1,9 @@
 <?php
 class Campaigns extends BaseClass {
     const SQL_CAMPAIGN_ROW = 'SELECT * FROM campaigns WHERE id=:id';
-    const SQL_CAMPAIGNS_ROWS = 'SELECT id, campaign, description, redirect_url FROM campaigns LIMIT :start, :limit';
-    const SQL_CAMPAIGN_ADD = 'INSERT INTO campaigns (campaign, description, redirect_url) VALUES(:campaign, :description, :redirect_url)';
-    const SQL_CAMPAIGN_EDIT = 'UPDATE campaigns SET campaign=:campaign, description=:description, redirect_url=:redirect_url WHERE id=:id';
+    const SQL_CAMPAIGNS_ROWS = 'SELECT id, campaign, description FROM campaigns LIMIT :start, :limit';
+    const SQL_CAMPAIGN_ADD = 'INSERT INTO campaigns (campaign, description) VALUES(:campaign, :description)';
+    const SQL_CAMPAIGN_EDIT = 'UPDATE campaigns SET campaign=:campaign, description=:description WHERE id=:id';
     const SQL_CAMPAIGN_DELETE = 'DELETE FROM campaigns WHERE id=:id';
 
     public function getCampaign($id) {
@@ -23,11 +23,10 @@ class Campaigns extends BaseClass {
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function add($campaign, $description, $redirect_url) {
+    public function add($campaign, $description) {
         $sth = $this->sql->prepare(self::SQL_CAMPAIGN_ADD);
         $sth->bindParam(':campaign', $campaign);
         $sth->bindParam(':description', $description);
-        $sth->bindParam(':redirect_url', $redirect_url);
         $sth->execute();
         if ($sth->rowCount() != 1) {
             $ei = $sth->errorInfo();
@@ -35,12 +34,11 @@ class Campaigns extends BaseClass {
         }
     }
 
-    public function edit($id, $campaign, $description, $redirect_url) {
+    public function edit($id, $campaign, $description) {
         $sth = $this->sql->prepare(self::SQL_CAMPAIGN_EDIT);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
         $sth->bindParam(':campaign', $campaign);
         $sth->bindParam(':description', $description);
-        $sth->bindParam(':redirect_url', $redirect_url);
         $sth->execute();
         if ($sth->rowCount() != 1) {
             $ei = $sth->errorInfo();

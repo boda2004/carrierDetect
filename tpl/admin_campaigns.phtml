@@ -14,7 +14,6 @@ if (!count($var_campaigns)) :?>
 <th>ID</th>
 <th>Campaign</th>
 <th>Description</th>
-<th>Redirect URL</th>
 <th>&nbsp;</th>
 </tr>
 <?php foreach($var_campaigns as $pos => $campaign):?>
@@ -22,7 +21,6 @@ if (!count($var_campaigns)) :?>
 <td><?php echo $campaign['id'];?></td>
 <td><a href="admin.php?action=carrier_campaign&amp;campaign_id=<?php echo $campaign['id'];?>"><?php echo $campaign['campaign'];?></a></td>
 <td><?php echo $campaign['description'];?></td>
-<td><?php echo $campaign['redirect_url'];?></td>
 <td>
 <a href="admin.php?action=delete_campaign&amp;id=<?php echo $campaign['id'];?>" onclick="return confirm('Do you really want to delete campaign &quot;<?php echo $campaign['campaign'];?>&quot;?');">delete</a>
 <a href="admin.php?action=edit_campaign&amp;id=<?php echo $campaign['id'];?>">edit</a>
@@ -39,7 +37,6 @@ if (!count($var_campaigns)) :?>
 <dd><input type="hidden" name="action" value="add_campaign" /></dd>
 <dt><label>Campaign: </label></dt><dd><input type="text" name="campaign" id="campaign"/></dd>
 <dt><label>Description: </label></dt><dd><textarea name="description" id="description" cols="15" rows="5"></textarea></dd>
-<dt><label>Redirect URL: </label></dt><dd><input type="text" name="redirect_url" /></dd>
 <dt></dt><dd><input type="submit" value="Add" /></dd>
 </dl>
 </form>

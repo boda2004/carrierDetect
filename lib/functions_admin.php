@@ -77,10 +77,9 @@ function admin_add_carrier(&$action, &$data) {
 function admin_add_campaign(&$action, &$data) {
     $campaign = empty($_REQUEST['campaign'])?'':$_REQUEST['campaign'];
     $description = empty($_REQUEST['description'])?'':$_REQUEST['description'];
-    $redirectUrl = empty($_REQUEST['redirect_url'])?'':$_REQUEST['redirect_url'];
     try {
         $campaigns = new Campaigns();
-        $campaigns->add($campaign, $description, $redirectUrl);
+        $campaigns->add($campaign, $description);
         header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=campaigns');
         exit;
     } catch (Exception $e) {
@@ -145,10 +144,9 @@ function admin_edit_campaign_submit(&$action, &$data) {
     $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
     $campaign = empty($_REQUEST['campaign'])?'':$_REQUEST['campaign'];
     $description = empty($_REQUEST['description'])?'':$_REQUEST['description'];
-    $redirectUrl = empty($_REQUEST['redirect_url'])?'':$_REQUEST['redirect_url'];
     try {
         $campaigns = new Campaigns();
-        $campaigns->edit($id, $campaign, $description, $redirectUrl);
+        $campaigns->edit($id, $campaign, $description);
         header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=campaigns');
         exit;
     } catch (Exception $e) {
