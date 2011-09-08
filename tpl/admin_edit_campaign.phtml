@@ -1,0 +1,13 @@
+<?php echo process_template('admin_header');?>
+<h2>Edit campaign:</h2>
+<form action="admin.php" method="post">
+<dl>
+<dt></dt>
+<dd><input type="hidden" name="action" value="edit_campaign_submit" /><input type="hidden" name="id" value="<?php echo $var_campaignInfo['id'];?>" /></dd>
+<dt><label>Campaign: </label></dt><dd><input type="text" name="campaign" id="campaign" value="<?php echo $var_campaignInfo['campaign'];?>"/></dd>
+<dt><label>Description: </label></dt><dd><textarea name="description" id="description"cols="15" rows="5"><?php echo $var_campaignInfo['description'];?></textarea></dd>
+<dt><label>Redirect URL: </label></dt><dd><input type="text" name="redirect_url" id="redirect_url" value="<?php echo $var_campaignInfo['redirect_url'];?>"/></dd>
+<dt></dt><dd><input type="submit" value="Edit" /></dd>
+</dl>
+</form>
+<?php echo process_template('admin_footer');?>

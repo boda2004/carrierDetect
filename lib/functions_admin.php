@@ -1,10 +1,33 @@
 <?php
+function admin_carriers(&$action, &$data) {
+    $carriers = new Carriers();
+    $data['carriers'] = $carriers->getList();
+}
+
+function admin_campaigns(&$action, &$data) {
+    $campaigns = new Campaigns();
+    $data['campaigns'] = $campaigns->getList();
+}
+
 function admin_delete_carrier(&$action, &$data) {
     $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
     try {
         $carriers = new Carriers();
         $carriers->delete($id);
         header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
+        exit;
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
+function admin_delete_campaign(&$action, &$data) {
+    $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
+    try {
+        $campaigns = new Campaigns();
+        $campaigns->delete($id);
+        header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=campaigns');
         exit;
     } catch (Exception $e) {
         $action = 'error';
@@ -27,11 +50,37 @@ function admin_add_carrier(&$action, &$data) {
     }
 }
 
+function admin_add_campaign(&$action, &$data) {
+    $campaign = empty($_REQUEST['campaign'])?'':$_REQUEST['campaign'];
+    $description = empty($_REQUEST['description'])?'':$_REQUEST['description'];
+    $redirectUrl = empty($_REQUEST['redirect_url'])?'':$_REQUEST['redirect_url'];
+    try {
+        $campaigns = new Campaigns();
+        $campaigns->add($campaign, $description, $redirectUrl);
+        header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=campaigns');
+        exit;
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
 function admin_edit_carrier(&$action, &$data) {
     $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
     try {
         $carriers = new Carriers();
         $data['carrierInfo'] = $carriers->getCarrier($id);
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
+function admin_edit_campaign(&$action, &$data) {
+    $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
+    try {
+        $campaigns = new Campaigns();
+        $data['campaignInfo'] = $campaigns->getCampaign($id);
     } catch (Exception $e) {
         $action = 'error';
         $data['error'] = $e->getMessage();
@@ -47,6 +96,22 @@ function admin_edit_carrier_submit(&$action, &$data) {
         $carriers = new Carriers();
         $carriers->edit($id, $carrier, $description, $redirectUrl);
         header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
+        exit;
+    } catch (Exception $e) {
+        $action = 'error';
+        $data['error'] = $e->getMessage();
+    }
+}
+
+function admin_edit_campaign_submit(&$action, &$data) {
+    $id = empty($_REQUEST['id'])?'':$_REQUEST['id'];
+    $campaign = empty($_REQUEST['campaign'])?'':$_REQUEST['campaign'];
+    $description = empty($_REQUEST['description'])?'':$_REQUEST['description'];
+    $redirectUrl = empty($_REQUEST['redirect_url'])?'':$_REQUEST['redirect_url'];
+    try {
+        $campaigns = new Campaigns();
+        $campaigns->edit($id, $campaign, $description, $redirectUrl);
+        header('Location: http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'?action=campaigns');
         exit;
     } catch (Exception $e) {
         $action = 'error';

@@ -2,9 +2,11 @@
 <div>
 Hello, <?php echo $var_user;?>!
 </div>
+<div>
+<a href="admin.php?action=campaigns">Switch to campaigns</a>
+</div>
 <?php
-$carriers = tpl_get_carriers();
-if (!count($carriers)) :?>
+if (!count($var_carriers)) :?>
 <div class="empty">No carriers</div>
 <?php else : ?>
 <table class="carriers">
@@ -15,7 +17,7 @@ if (!count($carriers)) :?>
 <th>Redirect URL</th>
 <th>&nbsp;</th>
 </tr>
-<?php foreach($carriers as $pos => $carrier):?>
+<?php foreach($var_carriers as $pos => $carrier):?>
 <tr class="row<?php echo $pos%2?>">
 <td><?php echo $carrier['id'];?></td>
 <td><a href="admin.php?action=carrier_ip&amp;carrier=<?php echo $carrier['id'];?>"><?php echo $carrier['carrier'];?></a></td>

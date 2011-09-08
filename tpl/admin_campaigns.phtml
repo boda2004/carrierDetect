@@ -1,0 +1,47 @@
+<?php echo process_template('admin_header');?>
+<div>
+Hello, <?php echo $var_user;?>!
+</div>
+<div>
+<a href="admin.php?action=index">Switch to carriers</a>
+</div>
+<?php
+if (!count($var_campaigns)) :?>
+<div class="empty">No campaigns</div>
+<?php else : ?>
+<table class="campaigns">
+<tr>
+<th>ID</th>
+<th>Campaign</th>
+<th>Description</th>
+<th>Redirect URL</th>
+<th>&nbsp;</th>
+</tr>
+<?php foreach($var_campaigns as $pos => $campaign):?>
+<tr class="row<?php echo $pos%2?>">
+<td><?php echo $campaign['id'];?></td>
+<td><a href="admin.php?action=campaign_ip&amp;campaign=<?php echo $campaign['id'];?>"><?php echo $campaign['campaign'];?></a></td>
+<td><?php echo $campaign['description'];?></td>
+<td><?php echo $campaign['redirect_url'];?></td>
+<td>
+<a href="admin.php?action=delete_campaign&amp;id=<?php echo $campaign['id'];?>" onclick="return confirm('Do you really want to delete campaign &quot;<?php echo $campaign['campaign'];?>&quot;?');">delete</a>
+<a href="admin.php?action=edit_campaign&amp;id=<?php echo $campaign['id'];?>">edit</a>
+</td>
+</tr>
+<?php endforeach;?>
+</table>
+<?php endif; ?>
+<div>
+<h2>Add new campaign:</h2>
+<form action="admin.php" method="post">
+<dl>
+<dt></dt>
+<dd><input type="hidden" name="action" value="add_campaign" /></dd>
+<dt><label>Campaign: </label></dt><dd><input type="text" name="campaign" id="campaign"/></dd>
+<dt><label>Description: </label></dt><dd><textarea name="description" id="description" cols="15" rows="5"></textarea></dd>
+<dt><label>Redirect URL: </label></dt><dd><input type="text" name="redirect_url" /></dd>
+<dt></dt><dd><input type="submit" value="Add" /></dd>
+</dl>
+</form>
+</div>
+<?php echo process_template('admin_footer');?>

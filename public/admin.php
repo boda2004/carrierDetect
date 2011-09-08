@@ -16,6 +16,10 @@ $data = array(
 require_once DROOT.'/lib/functions_admin.php';
 switch ($action) {
     case 'index':
+        admin_carriers($action, $data);
+        break;
+    case 'campaigns':
+        admin_campaigns($action, $data);
         break;
     case 'delete_carrier':
         admin_delete_carrier($action, $data);
@@ -28,6 +32,18 @@ switch ($action) {
         break;
     case 'edit_carrier_submit':
         admin_edit_carrier_submit($action, $data);
+        break;
+    case 'delete_campaign':
+        admin_delete_campaign($action, $data);
+        break;
+    case 'add_campaign':
+        admin_add_campaign($action, $data);
+        break;
+    case 'edit_campaign':
+        admin_edit_campaign($action, $data);
+        break;
+    case 'edit_campaign_submit':
+        admin_edit_campaign_submit($action, $data);
         break;
     case 'carrier_ip':
         admin_carrier_ip($action, $data);
